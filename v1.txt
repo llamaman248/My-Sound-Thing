@@ -1,0 +1,207 @@
+// WaveOutputTest.cpp : This file contains the 'main' function. Program execution begins and ends there.
+//
+#pragma once
+
+#include <iostream>
+#include <windows.h>
+#include <math.h>
+
+#ifdef _XBOX //Big-Endian
+#define fourccRIFF 'RIFF'
+#define fourccDATA 'data'
+#define fourccFMT 'fmt '
+#define fourccWAVE 'WAVE'
+#define fourccXWMA 'XWMA'
+#define fourccDPDS 'dpds'
+#endif
+
+#ifndef _XBOX //Little-Endian
+#define fourccRIFF 'FFIR'
+#define fourccDATA 'atad'
+#define fourccFMT ' tmf'
+#define fourccWAVE 'EVAW'
+#define fourccXWMA 'AMWX'
+#define fourccDPDS 'sdpd'
+#endif
+
+#define samplesPerSec 8000
+#define volume 0.3 // 1 is max
+#define copyBufferSize 4096
+
+HANDLE hTempDataFile;
+#include "functions.h"
+
+#define forwardWriter for (size_t i = 0; i < dataLength; ++i)
+#define reverseWriter for (size_t i = dataLength; i > 0; --i)
+
+//#include "audioFunctions.cpp"
+int main()
+{
+	HANDLE hFile = CreateFile(L"test.wav", GENERIC_READ | GENERIC_WRITE, /*FILE_SHARE_DELETE | FILE_SHARE_READ | FILE_SHARE_WRITE*/ NULL, NULL, CREATE_ALWAYS, NULL, NULL);
+	if (hFile == INVALID_HANDLE_VALUE)
+	{
+		return GetLastError();
+	}
+	
+	hTempDataFile = createTempFile();
+	if (hTempDataFile == INVALID_HANDLE_VALUE)
+	{
+		return GetLastError();
+	}
+
+	DWORD dwWriteValue;
+	DWORD bytesWritten = NULL;
+	DWORD fileSize = NULL;
+	WAVEFORMATEX wfx = {};
+	
+	
+
+
+
+	wfx.wFormatTag = WAVE_FORMAT_PCM;
+	wfx.nChannels = 1;
+	wfx.nSamplesPerSec = samplesPerSec; // 8000 / 1000 = 8.0kHz
+	wfx.wBitsPerSample = 8;
+	wfx.nAvgBytesPerSec = (wfx.nSamplesPerSec * wfx.wBitsPerSample * wfx.nChannels) / 8; // 8 bits in a byte
+	wfx.nBlockAlign = (wfx.nChannels * wfx.wBitsPerSample) / 8;  // size of a single frame of audio
+	wfx.cbSize = 0; // Not used. Excluded from file.
+
+
+	/*
+	{
+		const size_t dataLength = samplesPerSec * 3;
+		for (size_t i = 0; i < dataLength; ++i)  // type "forwardWriter" or "reverseWriter" here to make it go in that direction
+		{
+			dwWriteValue = (sin((double)i / pow((double)i, -0.3)) * ((double)(dataLength - i) * 63.75) / (double)dataLength) + 127.5;  // basic sign wave. 127.5 is the netrual speaker position (does not use negatives).
+			WriteFile(hTempDataFile, &dwWriteValue, wfx.wBitsPerSample / 8, &bytesWritten, NULL);
+		}
+	}
+	*/
+
+	writeByte(hTempDataFile, 127, &bytesWritten);
+	writeByte(hTempDataFile, 127, &bytesWritten);
+	writeByte(hTempDataFile, 128, &bytesWritten);
+	writeByte(hTempDataFile, 130, &bytesWritten);
+	writeByte(hTempDataFile, 140, &bytesWritten);
+	writeByte(hTempDataFile, 137, &bytesWritten);
+	writeByte(hTempDataFile, 120, &bytesWritten);
+	writeByte(hTempDataFile, 100, &bytesWritten);
+	writeByte(hTempDataFile, 127, &bytesWritten);
+	writeByte(hTempDataFile, 127, &bytesWritten);
+	writeByte(hTempDataFile, 137, &bytesWritten);
+	writeByte(hTempDataFile, 127, &bytesWritten);
+	writeByte(hTempDataFile, 127, &bytesWritten);
+
+	/*
+	SetFilePointer(hTempDataFile, 0, 0, FILE_BEGIN);
+	HANDLE test = reverse(hTempDataFile);
+	SetFilePointer(hTempDataFile, 0, 0, FILE_END);
+	SetFilePointer(test, 0, 0, FILE_BEGIN);
+	append(hTempDataFile, test);
+	SetFilePointer(hTempDataFile, 0, 0, FILE_BEGIN);
+	test = noiseDistort(hTempDataFile, 150);
+	SetFilePointer(hTempDataFile, 0, 0, FILE_END);
+	append(hTempDataFile, test);
+	*/
+	SetFilePointer(hTempDataFile, 0, 0, FILE_BEGIN);
+	dblFile(hTempDataFile);
+	dblFile(hTempDataFile);
+	SetFilePointer(hTempDataFile, 0, 0, FILE_BEGIN);
+	HANDLE test = reverse(hTempDataFile);
+	SetFilePointer(hTempDataFile, 0, 0, FILE_END);
+	SetFilePointer(test, 0, 0, FILE_BEGIN);
+	append(hTempDataFile, test);
+	SetFilePointer(hTempDataFile, 0, 0, FILE_BEGIN);
+	test = noiseDistort(hTempDataFile, 5);
+	SetFilePointer(hTempDataFile, 0, 0, FILE_END);
+	append(hTempDataFile, test);
+	dblFile(hTempDataFile);
+	dblFile(hTempDataFile);
+	SetFilePointer(hTempDataFile, 0, 0, FILE_BEGIN);
+	test = reverse(hTempDataFile);
+	SetFilePointer(hTempDataFile, 0, 0, FILE_END);
+	SetFilePointer(test, 0, 0, FILE_BEGIN);
+	append(hTempDataFile, test);
+	SetFilePointer(hTempDataFile, 0, 0, FILE_BEGIN);
+	test = noiseDistort(hTempDataFile, 5);
+	SetFilePointer(hTempDataFile, 0, 0, FILE_END);
+	append(hTempDataFile, test);
+	dblFile(hTempDataFile);
+	dblFile(hTempDataFile);
+	dblFile(hTempDataFile);
+	dblFile(hTempDataFile);
+	//hTempDataFile = noiseDistort(hTempDataFile, 60);
+	//hTempDataFile = reverse(hTempDataFile);
+	if (hTempDataFile == INVALID_HANDLE_VALUE)
+		return 0;
+
+	dwWriteValue = fourccRIFF;
+	WriteFile(hFile, &dwWriteValue, sizeof(DWORD), &bytesWritten, NULL);
+	dwWriteValue = 0;
+	WriteFile(hFile, &dwWriteValue, sizeof(DWORD), &bytesWritten, NULL);
+	dwWriteValue = fourccWAVE;
+	WriteFile(hFile, &dwWriteValue, sizeof(DWORD), &bytesWritten, NULL);
+	dwWriteValue = fourccFMT;
+	WriteFile(hFile, &dwWriteValue, sizeof(DWORD), &bytesWritten, NULL);
+	dwWriteValue = 16; // sizeof WAVEFORMATEX without cbsize
+	WriteFile(hFile, &dwWriteValue, sizeof(DWORD), &bytesWritten, NULL);
+	WriteFile(hFile, &wfx, dwWriteValue, &bytesWritten, NULL);
+	dwWriteValue = fourccDATA;
+	WriteFile(hFile, &dwWriteValue, sizeof(DWORD), &bytesWritten, NULL);
+
+	
+	LARGE_INTEGER lI = {};
+	GetFileSizeEx(hTempDataFile, &lI);
+	dwWriteValue = lI.QuadPart;
+	WriteFile(hFile, &dwWriteValue, sizeof(DWORD), &bytesWritten, NULL);
+
+	char dataBuffer[copyBufferSize];
+	DWORD bytesRead;
+	SetFilePointer(hTempDataFile, 0, 0, FILE_BEGIN);
+	while (ReadFile(hTempDataFile, dataBuffer, sizeof(dataBuffer), &bytesRead, NULL) && bytesRead > 0)
+	{
+		WriteFile(hFile, dataBuffer, bytesRead, &bytesWritten, NULL);
+	}
+	
+	SetFilePointer(hFile, 4, 0, FILE_BEGIN);
+	
+	
+
+	GetFileSizeEx(hFile, &lI);
+
+	if (lI.HighPart != 0)
+	{
+		lI.QuadPart -= sizeof(DWORD) * 2;
+		if (lI.HighPart != 0)
+			std::cout << "File is too large";
+	}
+	else
+	{
+		if(lI.LowPart > sizeof(DWORD) * 2)
+			lI.LowPart -= sizeof(DWORD) * 2;
+		else
+			std::cout << "File is too small";
+	}
+	WriteFile(hFile, &lI.LowPart, sizeof(DWORD), &bytesWritten, NULL);
+
+	// Extend the data to fill the nearest WOORD boundry
+	
+	if (lI.QuadPart % 2 == 1)
+	{
+		SetFilePointer(hFile, 0, 0, FILE_END);
+		dwWriteValue = 0;
+		WriteFile(hFile, &dwWriteValue, 1, &bytesWritten, NULL);
+	}
+	
+}
+
+// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
+// Debug program: F5 or Debug > Start Debugging menu
+
+// Tips for Getting Started: 
+//   1. Use the Solution Explorer window to add/manage files
+//   2. Use the Team Explorer window to connect to source control
+//   3. Use the Output window to see build output and other messages
+//   4. Use the Error List window to view errors
+//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
+//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file

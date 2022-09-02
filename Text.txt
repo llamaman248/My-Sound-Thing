@@ -1,0 +1,128 @@
+
+// Cool square wave
+bool upper = false;
+	for (size_t i = 0, th=1; i < sizeof(data); ++i)
+	{
+		if (i % th == 0)
+		{
+			upper = !upper;
+			if (upper)
+				th++;
+		}
+		if (upper)
+		{
+			data[i] = (volume * ((double)(sizeof(data) - i) * (127.5 / (double)sizeof(data)))) + 127.5;
+		}
+		else
+		{
+			data[i] = data[i] = -(volume * ((double)(sizeof(data) - i) * (127.5 / (double)sizeof(data)))) + 127.5;
+		}
+		//data[i] = (sin((double)i * 1) * ((double)(sizeof(data) - i) * 63.75) / (double)sizeof(data)) + 127.5; // 127.5 is max amplitude 127.5 is neutral position
+	}
+
+	// Kind of cool sin waves
+	data[i] = (sin((double)i * (double)i) * ((double)(dataLength - i) * 63.75) / (double)dataLength) + 127.5; // 127.5 is max amplitude 127.5 is neutral position
+
+	data[i] = (sin((double)i / pow((double)i, -0.3)) * ((double)(dataLength - i) * 63.75) / (double)dataLength) + 127.5; // 127.5 is max amplitude 127.5 is neutral position
+
+	// Coolness
+	double slope = 0, pos = 0, slope2 = 1, slope3 = 0, slope4 = 0;
+	for (size_t i = 0; i < samplesPerSec * 20; ++i)
+	{
+		slope += slope2;
+		if (abs(pos + slope) < 127.5)
+		{
+			pos += slope;
+		}
+		else
+		{
+			slope = -slope;
+			pos += slope;
+		}
+		dwWriteValue = pos + 127.5;
+		writeByte(hTempDataFile, dwWriteValue, &bytesWritten);
+	}
+
+	// another
+	int slope = 0, pos = 0, slope2 = 0, slope3 = 0, slope4 = 0;
+	for (size_t i = 0; i < samplesPerSec * 20; ++i)
+	{
+		slope3 += slope4;
+		slope2 += slope3;
+		slope += slope2;
+		pos += slope;
+		dwWriteValue = pos;
+		slope2 = (((double)rand() / (double)RAND_MAX) * 2 - 1) * 1;
+		writeByte(hTempDataFile, dwWriteValue, &bytesWritten);
+	}
+
+	// Old reverse function (more stable version for if the more efficient one breaks)
+	HANDLE reverse(HANDLE hFile)
+{
+	// Returns a file that is reversed of the one given (does not delete or overide the original. Starts at the previous position of the file pointer)
+	HANDLE hTempFile = createTempFile();
+	if (hTempFile == INVALID_HANDLE_VALUE)
+	{
+		return INVALID_HANDLE_VALUE;
+	}
+	char buffer[copyBufferSize];
+	char buffer2[copyBufferSize];
+	DWORD bytesRead;
+	DWORD bytesWritten;
+	LARGE_INTEGER fileSize;
+	LARGE_INTEGER li = {};
+	GetFileSizeEx(hFile, &fileSize);
+	SetFilePointerEx(hFile, li, &li, FILE_CURRENT);
+	li.QuadPart = fileSize.QuadPart - li.QuadPart;
+	
+	SetFilePointerEx(hTempFile, li, NULL, FILE_CURRENT);
+	while (ReadFile(hFile, &buffer, sizeof(buffer), &bytesRead, NULL) && bytesRead > 0)
+	{
+		// Write the contents of the file in another file in reverse
+		for (size_t i = 0;i < bytesRead; ++i)
+		{
+			buffer2[bytesRead - 1 - i] = buffer[i];
+		}
+		li.QuadPart -= bytesRead; // Litterly just -bytesRead, but done in a way to avoid unsigned errors
+		SetFilePointerEx(hTempFile, li, NULL, FILE_BEGIN);
+		WriteFile(hTempFile, &buffer2, bytesRead, &bytesWritten, NULL);
+		
+	}
+	
+	return hTempFile;
+}
+
+HANDLE reverse(HANDLE hFile, unsigned long long bytesToReverse) // maybe create a third one where you choose the location of the reverse (Not needed though because I can just use the append function)
+{
+	// Returns a file that is reversed of the one given (does not delete or overide the original. Starts at the previous position of the file pointer)
+	HANDLE hTempFile = createTempFile();
+	if (hTempFile == INVALID_HANDLE_VALUE)
+	{
+		return INVALID_HANDLE_VALUE;
+	}
+	char buffer[copyBufferSize];
+	char buffer2[copyBufferSize];
+	DWORD bytesRead;
+	DWORD bytesWritten;
+	LARGE_INTEGER fileSize;
+	LARGE_INTEGER li = {};
+	GetFileSizeEx(hFile, &fileSize);
+	SetFilePointerEx(hFile, li, &li, FILE_CURRENT);
+	li.QuadPart = min(fileSize.QuadPart - li.QuadPart, bytesToReverse);
+
+	SetFilePointerEx(hTempFile, li, NULL, FILE_CURRENT);
+	while (ReadFile(hFile, &buffer, sizeof(buffer), &bytesRead, NULL) && bytesRead > 0 && bytesToReverse > 0)
+	{
+		// Write the contents of the file in another file in reverse
+		for (size_t i = 0; i < bytesRead; ++i)
+		{
+			buffer2[bytesRead - 1 - i] = buffer[i];
+		}
+		li.QuadPart -= bytesRead; // Litterly just -bytesRead, but done in a way to avoid unsigned errors
+		SetFilePointerEx(hTempFile, li, NULL, FILE_BEGIN);
+		WriteFile(hTempFile, &buffer2, bytesRead, &bytesWritten, NULL);
+		bytesToReverse -= bytesRead;
+	}
+
+	return hTempFile;
+}
