@@ -54,7 +54,8 @@ int main()
 	
 
 	sHFILE pitchWave = createTempFile();
-	sHFILE hTempDataFile = melodyTest2(wfx, (HFILE)(HANDLE)pitchWave);
+	//sHFILE hTempDataFile = melodyTest2(wfx, (HFILE)(HANDLE)pitchWave);
+	sHFILE hTempDataFile = customWaveTest(wfx,pitchWave);
 
 	if (hTempDataFile == INVALID_HANDLE_VALUE)
 	{

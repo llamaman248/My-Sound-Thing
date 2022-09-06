@@ -1,6 +1,6 @@
 #pragma once
 
-HANDLE soundProject1(double pitchRatio = 1)
+HANDLE soundProject1(WAVEFORMATEX wfx, double pitchRatio = 1)
 {
 	HANDLE hReturn = createTempFile();
 	for (size_t i = 0; i < 200; ++i)
@@ -8,9 +8,9 @@ HANDLE soundProject1(double pitchRatio = 1)
 		sHFILE hfile = createTempFile();
 		sHFILE hfile2 = createTempFile();
 		sHFILE hfile3 = createTempFile();
-		generateSinWave(hfile, samplesPerSec * 0.03, samplesPerSec * 0.0004 * i * pitchRatio, 0.16, 0.99999);
-		generateSinWave(hfile2, samplesPerSec * 0.03, samplesPerSec * 0.0005 * i * pitchRatio, 0.00006, 0.99999);
-		generateSinWave(hfile3, samplesPerSec * 0.03, samplesPerSec * 0.00035 * i * pitchRatio, 0.9993);
+		generateSinWave(hfile, wfx.nSamplesPerSec * 0.03, wfx.nSamplesPerSec * 0.0004 * i * pitchRatio, 0.16, 0.99999);
+		generateSinWave(hfile2, wfx.nSamplesPerSec * 0.03, wfx.nSamplesPerSec * 0.0005 * i * pitchRatio, 0.00006, 0.99999);
+		generateSinWave(hfile3, wfx.nSamplesPerSec * 0.03, wfx.nSamplesPerSec * 0.00035 * i * pitchRatio, 0.9993);
 		mySetFilePointer(hfile, 0, FILE_BEGIN);
 		mySetFilePointer(hfile2, 0, FILE_BEGIN);
 		mySetFilePointer(hfile3, 0, FILE_BEGIN);
@@ -25,7 +25,7 @@ HANDLE soundProject1(double pitchRatio = 1)
 
 	mySetFilePointer(hReturn, 0, FILE_BEGIN);
 	sHFILE hFile = createTempFile();
-	generateSinWave(hFile, samplesPerSec * 4, samplesPerSec * 0.09 * pitchRatio, 0.08, 0.9999);
+	generateSinWave(hFile, wfx.nSamplesPerSec * 4, wfx.nSamplesPerSec * 0.09 * pitchRatio, 0.08, 0.9999);
 	mySetFilePointer(hFile, 0, FILE_BEGIN);
 	hReturn = addSounds(hReturn, hFile);
 	mySetFilePointer(hReturn, 0, FILE_BEGIN);
@@ -39,7 +39,7 @@ HANDLE efficientSoundSinShift(WAVEFORMATEX wfx, double pitchRatio = 1, double vo
 
 	DWORD bytesWritten = 0;
 	double dWrite = 0;
-	size_t length = samplesPerSec * 2;
+	size_t length = wfx.nSamplesPerSec * 2;
 	for (size_t i=0;i<length;++i)
 	{
 		dWrite = sinWave(wfx, (double)i / length * 500, i);
@@ -55,7 +55,7 @@ HANDLE randPitchTest(WAVEFORMATEX wfx, double pitchRatio = 1, double volumeRatio
 
 	DWORD bytesWritten = 0;
 	double dWrite = 0;
-	size_t length = samplesPerSec * 2;
+	size_t length = wfx.nSamplesPerSec * 2;
 	for (size_t i = 0; i < length; ++i)
 	{
 		dWrite = sinWave(wfx, rand(), i);
@@ -72,7 +72,7 @@ HANDLE sinPitchTest(WAVEFORMATEX wfx, double pitchRatio = 1, double volumeRatio 
 	DWORD bytesWritten = 0;
 	double dWrite = 0;
 	double test = 0;
-	size_t length = samplesPerSec * 10;
+	size_t length = wfx.nSamplesPerSec * 10;
 	PitchShifter sinWave1(wfx, sinWave, 300, 0.1);
 	for (size_t i = 0; i < length; ++i)
 	{
@@ -117,3 +117,60 @@ public:
 		return playingSquareWave.nextFrame(nextFrameDistance) * volume;
 	}
 };
+
+
+HANDLE customWaveTest(WAVEFORMATEX wfx, HANDLE hPitch)
+{
+	HANDLE hReturn = createTempFile();
+
+
+
+	size_t index = -1;
+	size_t timesPlayed = 0;
+	int neg = 1;
+	dPoint pointsSawTooth[] = { {0,0}, {1, 0}, {.3,-1}, {.3, -1}, {.3, -.5}, {.3, -.7}, {.3, 0} };
+	WAVEFORMATEX tempWfx = wfx;
+	tempWfx.nSamplesPerSec = 1;
+	PointInterpolator customWave([&]
+		{
+			
+			
+			++index;
+			if (index == ((double)sizeof(pointsSawTooth) / sizeof(pointsSawTooth[0])))
+			{
+				++timesPlayed;
+				index = 0;
+				pointsSawTooth[4].value = sinWave(tempWfx, 0.003, timesPlayed, 0.2) - 0.5;
+				pointsSawTooth[2].value = sinWave(tempWfx, 0.0002, timesPlayed, 0.2) - 0.2;
+				pointsSawTooth[3].value = sinWave(tempWfx, 0.0025, timesPlayed, 0.2) - 0.8;
+				pointsSawTooth[5].value = sinWave(tempWfx, 0.0023, timesPlayed, 0.1) - 0.5;
+				//pointsSawTooth[0].time = 0.5;
+				neg *= -1;
+			}
+			
+			pointsSawTooth[index].value;
+			return pointsSawTooth[index];
+
+		}, wfx, 400.0, 1.0
+	);
+
+
+	size_t index2 = -1;
+	double pitch = 300;
+	dPoint pointsPitchWave[] = { {0, pitch}, {1, pitch *= 7.0 / 6}, {0, pitch *= 7.0 / 6}, {.5, pitch}, {0, pitch = 300}, {.5, pitch}, {0, pitch *= 2}, {1, pitch} };
+	PointInterpolator InterpolArrayIndexer(pointsPitchWave, index2), wfx, 30, 1.0
+	);
+
+	PointInterpolator pitchTest = customWave;
+	pitchTest.HzFrequency = 20;
+	double dWrite = 0;
+	for (size_t i = 0; i < (size_t)wfx.nSamplesPerSec * 20; ++i)
+	{
+		//customWave.HzFrequency = customPitchWave.nextFrame();
+		customWave.HzFrequency = dWrite * 300 + 400;
+		dWrite = customWave.nextFrame() * neg;
+		writeSoundFrame(wfx, hReturn, dWrite);
+	}
+
+	return hReturn;
+}

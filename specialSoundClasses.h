@@ -5,6 +5,7 @@
 class PitchShifter : public sound
 {
 public:
+	double waveOffset = 0.0;
 	double (*sFunc)(WAVEFORMATEX wfx, double HzFrequency, double requestedFrame, double volume) = 0;
 	
 	PitchShifter(WAVEFORMATEX initWfx, 
@@ -34,3 +35,68 @@ public:
 	}
 };
 
+typedef struct tag_dPoint
+{
+	// 2D point made of doubles
+	double time = 0;
+	double value = 0;
+} dPoint;
+
+
+
+class PointInterpolator : public sound
+{
+	dPoint prevPoint = {}; // initialized at {0, 0}
+	dPoint nextPoint = {};
+public:
+	double waveOffset = 0.0;
+	std::function<dPoint(void)> fToGiveNextPoint;
+
+	PointInterpolator(std::function<dPoint(void)> funcToGiveNextPoint, WAVEFORMATEX initWfx, double initHzFrequency, double initVolume) :
+		fToGiveNextPoint(funcToGiveNextPoint)
+	{
+		wfx = initWfx;
+		volume = initVolume;
+		HzFrequency = initHzFrequency;
+		nextPoint = fToGiveNextPoint();
+		if (nextPoint.time == 0.0)
+		{
+			prevPoint.value = nextPoint.value;
+			//double temp = nextPoint.time; (these two commented lines would be useless because they are for when time is not 0.0 on nextPoint)
+			nextPoint = fToGiveNextPoint();
+			//nextPoint.time += temp; // To make the Time in the function a releative offset
+		}
+
+	}
+
+	double nextFrame(double nextFrameDistance = 1.0)
+	{
+		if (firstTime)
+		{
+			firstTime = false;
+			return prevPoint.value;
+		}
+		waveOffset += HzFrequency * nextFrameDistance;
+	
+	checkIfWaveOffsetIsInDomain:
+
+		// If waveOffset is not in current domain, get the next one and check again
+		if (waveOffset > (nextPoint.time * wfx.nSamplesPerSec))
+		{
+			prevPoint = nextPoint;
+			double temp = nextPoint.time;
+			nextPoint = fToGiveNextPoint();
+			nextPoint.time += temp; // To make the function return a relative time offset
+			goto checkIfWaveOffsetIsInDomain;
+		}
+
+		// Linear interpolation, I plan on adding more interpolation options
+		double diffTime = (nextPoint.time - prevPoint.time);
+		if (diffTime == 0.0) // if the prevPoint and nextPoint are at the same time and that time is requested, return the value of nextPoint (without this, this case would be a divide by zero)
+			return nextPoint.value;
+		
+		double ret = prevPoint.value + ((nextPoint.value - prevPoint.value) / diffTime) * ((waveOffset / wfx.nSamplesPerSec) - prevPoint.time);
+
+		return ret * volume;
+	}
+};

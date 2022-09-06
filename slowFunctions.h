@@ -40,6 +40,8 @@ HANDLE createTempFile()
 	GetTempFileName(L".\\temp\\", L"raw", 0, tempFileName);
 	HANDLE hTempFile = CreateFile(tempFileName, GENERIC_READ | GENERIC_WRITE, /*FILE_SHARE_DELETE | FILE_SHARE_READ | FILE_SHARE_WRITE*/ NULL, NULL,
 		OPEN_EXISTING, /*FILE_ATTRIBUTE_TEMPORARY | /* Might want this, but not sure*/ FILE_FLAG_DELETE_ON_CLOSE, NULL); // GetTempFileName creates the file, so this only needs to open it
+	if (hTempFile == INVALID_HANDLE_VALUE)
+		std::cout << GetLastError();
 	return hTempFile;
 }
 

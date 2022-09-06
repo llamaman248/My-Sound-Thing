@@ -8,13 +8,12 @@ class vibrotoSquare : public sound
 	PitchShifter pitchSinWave;
 	PitchShifter playingSquareWave;
 public:
-	vibrotoSquare(WAVEFORMATEX initWfx, double initPitchRatio, double initVolume, double initWaveOffset = 0.0)
+	vibrotoSquare(WAVEFORMATEX initWfx, double initPitchRatio, double initVolume)
 		: // Initializers of PitchShifters:
 		pitchSinWave(initWfx, sinWave, 0, 4),
 		playingSquareWave(initWfx, squareWave, 300, 1),
 		pitchPitchSinWave(initWfx, sinWave, 1, 2)
 	{
-		waveOffset = initWaveOffset;
 		wfx = initWfx;
 		HzFrequency = initPitchRatio;
 		volume = initVolume;
@@ -28,7 +27,6 @@ public:
 	}
 	void reset()
 	{
-		waveOffset = 0;
 		firstTime = true;
 		pitchSinWave.reset();
 		pitchPitchSinWave.reset();
