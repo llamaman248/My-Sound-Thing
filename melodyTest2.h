@@ -5,7 +5,7 @@
 HANDLE melodyTest2(WAVEFORMATEX wfx, HFILE pitchWave = NULL)
 {
 
-#define bpm (60)
+#define bpm (124)
 
 #define tempoRatio (60.0 / bpm)
 
@@ -23,38 +23,87 @@ forlen(length)\
 writeSoundFrame(wfx, hReturn, dWrite); } SndVS.reset(); }
 
 
+	// not perfectly in tune notes, but close enough for my purposes
+	double d = 300;
+	double a = std::pow(7 / 6.0, 3) * 300;
+	double g = a * 6.0 / 7;
+	double b = a * 7.0 / 6;
+	double e = d * 7.0 / 6;
+	double c = b * 8.0 / 7;
 
-	note(0.5, 300);
 
-	note(0.5 / 2, 300);
-	note(0.5 / 2, 300);
+	note(1, b);
+	note(1, b);
 
-	note(0.5 / 2, 300);
-	note(0.5 / 2, 300);
+	note(0.5, 0);
+	note(0.5, b);
+	note(1, 0);
 
-	note(0.5, 300);
+	note(1, b);
+	note(0.5, 0);
+	note(0.5, c * 7.0 / 6);
+	note(1, 0);
 
-	note(0.5, 300);
+	note(1, b);
+	note(1, b);
+
+	note(0.5, 0);
+	note(0.5, b);
+	note(1, 0);
+
+	note(1, b);
+	note(0.5, 0);
+	note(0.5, c * 7.0 / 6);
+
+	note(0.5, 0);
+	note(0.5, c * std::pow(8.0 / 7, 3));
+	note(0.5, c * 7.0 / 6);
+	note(0.5, b);
+
+	note(1, 0);
+	note(1, b);
+
+	note(0.5, 0);
+	note(0.5, b);
+	note(0.5, c * std::pow(8.0 / 7, 3));
+	note(0.5, c * std::pow(8.0 / 7, 2));
+
+
+	/*
+	note(0.5, d);
+
+
+	note(0.5 / 2, a);
+	note(0.5 / 2, g);
+
+	note(0.5 / 2, a);
+	note(0.5 / 2, g);
+
+	note(0.5, d);
+
+	note(0.5, e);
 	
-	note(0.5 / 2, 300);
-	note(0.5 / 2, 300);
+	note(0.5 / 2, b);
+	note(0.5 / 2 + 0.5, a);
 
-	note(0.5, 300);
+	//note(0.5, 300); // included in the previous note (because slur)
 
-	note(0.5 / 2, 300);
-	note(0.5 / 2, 300);
+	note(0.5 / 2, a);
+	note(0.5 / 2, g);
 
-	note(0.5 / 2, 300);
-	note(0.5 / 2, 300);
+	note(0.5 / 2, a);
+	note(0.5 / 2, g);
 
-	note(0.5, 300);
+	note(0.5, d);
 
-	note(0.5, 300);
+	note(0.5, e);
 
-	note(0.5 / 2, 300);
-	note(0.5 / 2, 300);
+	note(0.5 / 2, b);
+	note(0.5 / 2 + 2, c);
+	*/
 
-	note(2, 300);
+	//note(2, 300); // slur
+
 	/*
 	forlen(samplesPerSec * 30)
 	{

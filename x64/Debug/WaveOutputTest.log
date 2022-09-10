@@ -1,47 +1,37 @@
 ﻿  WaveOutputTest.cpp
-C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\slowFunctions.h(98,16): warning C4018: '<': signed/unsigned mismatch
-C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\slowFunctions.h(166,26): warning C4244: '=': conversion from 'double' to 'char', possible loss of data
-C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\slowFunctions.h(201,17): warning C4244: 'initializing': conversion from 'double' to 'DWORD', possible loss of data
-C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\slowFunctions.h(202,27): warning C4244: 'argument': conversion from 'DWORD' to 'BYTE', possible loss of data
-C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\slowFunctions.h(207,17): warning C4244: 'initializing': conversion from 'double' to 'DWORD', possible loss of data
-C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\slowFunctions.h(213,17): warning C4244: 'initializing': conversion from 'double' to 'DWORD', possible loss of data
-C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\slowFunctions.h(252,37): warning C4244: '=': conversion from 'double' to 'DWORD', possible loss of data
-C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\slowFunctions.h(256,38): warning C4244: '=': conversion from 'double' to 'DWORD', possible loss of data
-C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\slowFunctions.h(258,20): warning C4244: 'argument': conversion from 'DWORD' to 'BYTE', possible loss of data
-C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\slowFunctions.h(275,66): warning C4244: '=': conversion from 'double' to 'char', possible loss of data
-C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\slowFunctions.h(342,23): warning C4838: conversion from 'LONGLONG' to 'DWORD' requires a narrowing conversion
-C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\slowFunctions.h(342,23): warning C4244: 'initializing': conversion from 'LONGLONG' to 'DWORD', possible loss of data
-C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\Sounds.h(11,40): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\Sounds.h(12,41): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\Sounds.h(13,41): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\Sounds.h(28,39): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\Sounds.h(42,16): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
-C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\Sounds.h(45,51): warning C4244: 'argument': conversion from 'size_t' to 'double', possible loss of data
-C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\Sounds.h(58,16): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
-C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\Sounds.h(61,33): warning C4244: 'argument': conversion from 'size_t' to 'double', possible loss of data
-C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\Sounds.h(75,16): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
-C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\Sounds.h(79,43): warning C4244: 'argument': conversion from 'size_t' to 'double', possible loss of data
-C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\Sounds.h(83,49): warning C4244: 'argument': conversion from 'size_t' to 'double', possible loss of data
-C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(27,2): warning C4003: not enough arguments for function-like macro invocation 'note'
-C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(27,2): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
-C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(29,2): warning C4003: not enough arguments for function-like macro invocation 'note'
-C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(29,2): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
-C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(30,2): warning C4003: not enough arguments for function-like macro invocation 'note'
-C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(30,2): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
-C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(32,2): warning C4003: not enough arguments for function-like macro invocation 'note'
-C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(32,2): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
-C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(33,2): warning C4003: not enough arguments for function-like macro invocation 'note'
-C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(33,2): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\slowFunctions.h(100,16): warning C4018: '<': signed/unsigned mismatch
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\slowFunctions.h(168,26): warning C4244: '=': conversion from 'double' to 'char', possible loss of data
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\slowFunctions.h(203,17): warning C4244: 'initializing': conversion from 'double' to 'DWORD', possible loss of data
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\slowFunctions.h(204,27): warning C4244: 'argument': conversion from 'DWORD' to 'BYTE', possible loss of data
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\slowFunctions.h(209,17): warning C4244: 'initializing': conversion from 'double' to 'DWORD', possible loss of data
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\slowFunctions.h(215,17): warning C4244: 'initializing': conversion from 'double' to 'DWORD', possible loss of data
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\slowFunctions.h(254,37): warning C4244: '=': conversion from 'double' to 'DWORD', possible loss of data
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\slowFunctions.h(258,38): warning C4244: '=': conversion from 'double' to 'DWORD', possible loss of data
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\slowFunctions.h(260,20): warning C4244: 'argument': conversion from 'DWORD' to 'BYTE', possible loss of data
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\slowFunctions.h(277,66): warning C4244: '=': conversion from 'double' to 'char', possible loss of data
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\slowFunctions.h(344,23): warning C4838: conversion from 'LONGLONG' to 'DWORD' requires a narrowing conversion
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\slowFunctions.h(344,23): warning C4244: 'initializing': conversion from 'LONGLONG' to 'DWORD', possible loss of data
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\Sounds.h(12,50): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\Sounds.h(13,51): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\Sounds.h(14,51): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\Sounds.h(46,51): warning C4244: 'argument': conversion from 'size_t' to 'double', possible loss of data
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\Sounds.h(62,33): warning C4244: 'argument': conversion from 'size_t' to 'double', possible loss of data
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\Sounds.h(80,43): warning C4244: 'argument': conversion from 'size_t' to 'double', possible loss of data
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\Sounds.h(84,49): warning C4244: 'argument': conversion from 'size_t' to 'double', possible loss of data
 C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(35,2): warning C4003: not enough arguments for function-like macro invocation 'note'
 C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(35,2): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
-C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(37,2): warning C4003: not enough arguments for function-like macro invocation 'note'
-C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(37,2): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(36,2): warning C4003: not enough arguments for function-like macro invocation 'note'
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(36,2): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(38,2): warning C4003: not enough arguments for function-like macro invocation 'note'
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(38,2): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
 C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(39,2): warning C4003: not enough arguments for function-like macro invocation 'note'
 C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(39,2): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
 C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(40,2): warning C4003: not enough arguments for function-like macro invocation 'note'
 C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(40,2): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
 C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(42,2): warning C4003: not enough arguments for function-like macro invocation 'note'
 C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(42,2): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(43,2): warning C4003: not enough arguments for function-like macro invocation 'note'
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(43,2): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
 C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(44,2): warning C4003: not enough arguments for function-like macro invocation 'note'
 C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(44,2): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
 C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(45,2): warning C4003: not enough arguments for function-like macro invocation 'note'
@@ -52,17 +42,35 @@ C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(48,2): wa
 C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(48,2): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
 C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(50,2): warning C4003: not enough arguments for function-like macro invocation 'note'
 C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(50,2): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(51,2): warning C4003: not enough arguments for function-like macro invocation 'note'
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(51,2): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
 C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(52,2): warning C4003: not enough arguments for function-like macro invocation 'note'
 C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(52,2): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
 C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(54,2): warning C4003: not enough arguments for function-like macro invocation 'note'
 C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(54,2): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
 C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(55,2): warning C4003: not enough arguments for function-like macro invocation 'note'
 C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(55,2): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
-C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(57,2): warning C4003: not enough arguments for function-like macro invocation 'note'
-C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(57,2): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
-C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\WaveOutputTest.cpp(49,23): warning C4244: '=': conversion from 'double' to 'DWORD', possible loss of data
-C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\WaveOutputTest.cpp(57,66): warning C4311: 'type cast': pointer truncation from 'HANDLE' to 'HFILE'
-C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\WaveOutputTest.cpp(57,66): warning C4302: 'type cast': truncation from 'HANDLE' to 'HFILE'
-C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\WaveOutputTest.cpp(41,8): warning C4101: 'dwWriteValue': unreferenced local variable
-C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\WaveOutputTest.cpp(104,19): warning C4244: '=': conversion from 'LONGLONG' to 'DWORD', possible loss of data
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(56,2): warning C4003: not enough arguments for function-like macro invocation 'note'
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(56,2): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(58,2): warning C4003: not enough arguments for function-like macro invocation 'note'
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(58,2): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(59,2): warning C4003: not enough arguments for function-like macro invocation 'note'
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(59,2): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(60,2): warning C4003: not enough arguments for function-like macro invocation 'note'
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(60,2): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(61,2): warning C4003: not enough arguments for function-like macro invocation 'note'
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(61,2): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(63,2): warning C4003: not enough arguments for function-like macro invocation 'note'
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(63,2): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(64,2): warning C4003: not enough arguments for function-like macro invocation 'note'
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(64,2): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(66,2): warning C4003: not enough arguments for function-like macro invocation 'note'
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(66,2): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(67,2): warning C4003: not enough arguments for function-like macro invocation 'note'
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(67,2): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(68,2): warning C4003: not enough arguments for function-like macro invocation 'note'
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(68,2): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(69,2): warning C4003: not enough arguments for function-like macro invocation 'note'
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\melodyTest2.h(69,2): warning C4244: 'initializing': conversion from 'double' to 'size_t', possible loss of data
+C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\WaveOutputTest.cpp(95,19): warning C4244: '=': conversion from 'LONGLONG' to 'DWORD', possible loss of data
   WaveOutputTest.vcxproj -> C:\Users\Kids\source\repos\WaveOutputTest\My-Sound-Thing\x64\Debug\WaveOutputTest.exe

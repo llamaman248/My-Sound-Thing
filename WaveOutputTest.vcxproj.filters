@@ -70,5 +70,8 @@
     <ClInclude Include="soundsMelodyTest2.h">
       <Filter>Header Files\Sounds</Filter>
     </ClInclude>
+    <ClInclude Include="helperThings.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

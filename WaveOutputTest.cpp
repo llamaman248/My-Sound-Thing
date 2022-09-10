@@ -25,28 +25,22 @@
 #define fourccDPDS 'sdpd'
 #endif
 
-#define samplesPerSec (double)16000  // Has to be an integer, only marked as double to fix rounding errors
 #define copyBufferSize 4096
 
 #include "headers.h"
 
 void saveSoundFile(WAVEFORMATEX, HANDLE, const wchar_t*);
 
+
 //#include "audioFunctions.cpp"
 int main()
 {
 	
-	
-
-	DWORD dwWriteValue;
-	DWORD bytesWritten = NULL;
-	LARGE_INTEGER fileSize = {};
 	WAVEFORMATEX wfx = {};
-	
 	
 	wfx.wFormatTag = WAVE_FORMAT_PCM;
 	wfx.nChannels = 1;
-	wfx.nSamplesPerSec = samplesPerSec; // 8000 / 1000 = 8.0kHz
+	wfx.nSamplesPerSec = 16000; // 8000 / 1000 = 8.0kHz
 	wfx.wBitsPerSample = 32;
 	wfx.nAvgBytesPerSec = (wfx.nSamplesPerSec * wfx.wBitsPerSample * wfx.nChannels) / 8; // 8 bits in a byte
 	wfx.nBlockAlign = (wfx.nChannels * wfx.wBitsPerSample) / 8;  // size of a single frame of audio
@@ -55,24 +49,20 @@ int main()
 
 	sHFILE pitchWave = createTempFile();
 	//sHFILE hTempDataFile = melodyTest2(wfx, (HFILE)(HANDLE)pitchWave);
-	sHFILE hTempDataFile = customWaveTest(wfx,pitchWave);
+	sHFILE hTempDataFile = customWaveTest(wfx, NULL);
 
 	if (hTempDataFile == INVALID_HANDLE_VALUE)
 	{
 		return GetLastError();
 	}
-	/*
-	generateSquareWave(hTempDataFile, samplesPerSec * 1.5, samplesPerSec / 32, 0.03, 0.99996);
-	generateSquareWave(hTempDataFile, samplesPerSec * 1.5, samplesPerSec / 16, 0.03, 0.99996);
-	generateSquareWave(hTempDataFile, samplesPerSec * 1.5, samplesPerSec / 12, 0.03, 0.99996);
-	generateSquareWave(hTempDataFile, samplesPerSec * 1.5, samplesPerSec / 10, 0.03, 0.99996);
-	generateSquareWave(hTempDataFile, samplesPerSec * 1.5, samplesPerSec / 9, 0.03, 0.99996);
-	*/
 	
 
 	saveSoundFile(wfx, hTempDataFile, L"NewSound.wav");
 	saveSoundFile(wfx, pitchWave, L"pitchWave.wav");
 }
+
+
+
 
 void saveSoundFile(WAVEFORMATEX wfx, HANDLE rawSoundFile, const wchar_t* fileName)
 {

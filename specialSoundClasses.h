@@ -35,45 +35,60 @@ public:
 	}
 };
 
-typedef struct tag_dPoint
+class dPoint
 {
-	// 2D point made of doubles
+	// 2D point made of doubles, where x is time and y is value
+public:
 	double time = 0;
 	double value = 0;
-} dPoint;
+	dPoint(double initTime, double initValue) : time(initTime), value(initValue) {}
+	dPoint() {}
+};
 
+class weightedPoint : public dPoint
+{
+public:
+	double weight = 1;
+	weightedPoint(dPoint initDp, double initWeight) : dPoint::dPoint(initDp), weight(initWeight) {}
+	weightedPoint(double initTime, double initValue, double initWeight) : dPoint::dPoint(initTime, initValue), weight(initWeight) {}
+	weightedPoint() {}
 
+};
+
+#include "helperThings.h"
 
 class PointInterpolator : public sound
 {
-	dPoint prevPoint = {}; // initialized at {0, 0}
-	dPoint nextPoint = {};
+	weightedPoint prevPoint = weightedPoint(0, 0, 1); // initialized at {0, 0} with weight of 1
+	weightedPoint nextPoint = weightedPoint(0, 0, 0);
 public:
 	double waveOffset = 0.0;
-	std::function<dPoint(void)> fToGiveNextPoint;
+	std::function<weightedPoint(void)> fToGiveNextPoint;
+	std::function<double(weightedPoint, weightedPoint, double)> interpolationFunction;
 
-	PointInterpolator(std::function<dPoint(void)> funcToGiveNextPoint, WAVEFORMATEX initWfx, double initHzFrequency, double initVolume) :
-		fToGiveNextPoint(funcToGiveNextPoint)
+	PointInterpolator(std::function<weightedPoint(void)> funcToGiveNextPoint, WAVEFORMATEX initWfx, double initHzFrequency, double initVolume, std::function<double(weightedPoint,weightedPoint,double)> initInterpolationFunc = linearInterpolator) :
+		fToGiveNextPoint(funcToGiveNextPoint),
+		interpolationFunction(initInterpolationFunc)
 	{
 		wfx = initWfx;
 		volume = initVolume;
 		HzFrequency = initHzFrequency;
-		nextPoint = fToGiveNextPoint();
-		if (nextPoint.time == 0.0)
-		{
-			prevPoint.value = nextPoint.value;
-			//double temp = nextPoint.time; (these two commented lines would be useless because they are for when time is not 0.0 on nextPoint)
-			nextPoint = fToGiveNextPoint();
-			//nextPoint.time += temp; // To make the Time in the function a releative offset
-		}
-
 	}
 
 	double nextFrame(double nextFrameDistance = 1.0)
 	{
 		if (firstTime)
 		{
-			firstTime = false;
+			nextPoint = fToGiveNextPoint();
+			if (nextPoint.time == 0.0)
+			{
+				prevPoint.value = nextPoint.value;
+				//double temp = nextPoint.time; (these two commented lines would be useless because they are for when time is not 0.0 on nextPoint)
+				nextPoint = fToGiveNextPoint();
+				//nextPoint.time += temp; // To make the Time in the function a releative offset
+			}
+
+			firstTime = false; // Setting firstTime back to true manualy may not result in expected results because the fToGiveNextPoint is not reset
 			return prevPoint.value;
 		}
 		waveOffset += HzFrequency * nextFrameDistance;
@@ -90,6 +105,11 @@ public:
 			goto checkIfWaveOffsetIsInDomain;
 		}
 
+
+		return interpolationFunction(prevPoint, nextPoint, waveOffset / wfx.nSamplesPerSec);
+
+
+		/*
 		// Linear interpolation, I plan on adding more interpolation options
 		double diffTime = (nextPoint.time - prevPoint.time);
 		if (diffTime == 0.0) // if the prevPoint and nextPoint are at the same time and that time is requested, return the value of nextPoint (without this, this case would be a divide by zero)
@@ -98,5 +118,6 @@ public:
 		double ret = prevPoint.value + ((nextPoint.value - prevPoint.value) / diffTime) * ((waveOffset / wfx.nSamplesPerSec) - prevPoint.time);
 
 		return ret * volume;
+		*/
 	}
 };

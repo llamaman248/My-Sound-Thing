@@ -41,7 +41,7 @@ HANDLE createTempFile()
 	HANDLE hTempFile = CreateFile(tempFileName, GENERIC_READ | GENERIC_WRITE, /*FILE_SHARE_DELETE | FILE_SHARE_READ | FILE_SHARE_WRITE*/ NULL, NULL,
 		OPEN_EXISTING, /*FILE_ATTRIBUTE_TEMPORARY | /* Might want this, but not sure*/ FILE_FLAG_DELETE_ON_CLOSE, NULL); // GetTempFileName creates the file, so this only needs to open it
 	if (hTempFile == INVALID_HANDLE_VALUE)
-		std::cout << GetLastError();
+		std::cout << "File Error. Check if temp exists (may not be the problem, but it usualy is). Error code: " << GetLastError();
 	return hTempFile;
 }
 
@@ -235,9 +235,9 @@ void dblFile(HANDLE hFile)
 	CloseHandle(copy);
 }
 
-void generateSquareWave(HANDLE hFile, int dataLength, double swapsPerSecond, double baseAmp = 0.04, double slopeAmp = 1, double minAmp = 0, double maxAmp = 0.04)
+void generateSquareWave(WAVEFORMATEX wfx, HANDLE hFile, int dataLength, double swapsPerSecond, double baseAmp = 0.04, double slopeAmp = 1, double minAmp = 0, double maxAmp = 0.04)
 {
-	double swapsPerSample = swapsPerSecond / samplesPerSec;
+	double swapsPerSample = swapsPerSecond / (double)wfx.nSamplesPerSec;
 	int swapsDone = 0;
 	DWORD bytesWritten = 0;
 	DWORD dwWriteValue;
@@ -267,9 +267,9 @@ void generateSquareWave(HANDLE hFile, int dataLength, double swapsPerSecond, dou
 	}
 }
 
-void generateSinWave(HANDLE hFile, int dataLength, double swapsPerSecond, double baseAmp = 0.08, double slopeAmp = 1, double minAmp = 0, double maxAmp = 0.16)
+void generateSinWave(WAVEFORMATEX wfx, HANDLE hFile, int dataLength, double swapsPerSecond, double baseAmp = 0.08, double slopeAmp = 1, double minAmp = 0, double maxAmp = 0.16)
 {
-	double swapsPerSample = swapsPerSecond / samplesPerSec;
+	double swapsPerSample = swapsPerSecond / (double)wfx.nSamplesPerSec;
 	DWORD bytesWritten = 0;
 	char cWriteValue;
 	for (size_t i = 0; i < dataLength; ++i)

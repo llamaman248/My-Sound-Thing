@@ -31,5 +31,39 @@ public:
 		pitchSinWave.reset();
 		pitchPitchSinWave.reset();
 		playingSquareWave.reset();
+
+		
+	}
+};
+
+
+class violin : public sound
+{
+	// Not actualy a violin, yet!
+public:
+	PointInterpolator soundWave;
+	loopingVector<weightedPoint> lV;
+
+	violin(WAVEFORMATEX initWfx, double initHzFrequency, double initVolume) : soundWave([this]
+		{
+			return lV.next();
+		}, initWfx, HzFrequency, volume, weightedInterpolator)
+	{
+		HzFrequency = initHzFrequency;
+		volume = initVolume;
+		wfx = initWfx;
+		lV.currentPiece->value = weightedPoint(1, -1, 1);
+		lV.pushToNext(weightedPoint(1,1,2));
+		//lV.selectNext(); // loops back to start
+	}
+	double nextFrame(double nextFrameDistance = 1)
+	{
+		soundWave.HzFrequency = HzFrequency;
+		return soundWave.nextFrame(nextFrameDistance) * volume;
+	}
+	void reset()
+	{
+		firstTime = true;
+		soundWave.reset();
 	}
 };

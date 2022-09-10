@@ -148,6 +148,7 @@
   <ItemGroup>
     <ClInclude Include="BaseSoundClass.h" />
     <ClInclude Include="Headers.h" />
+    <ClInclude Include="helperThings.h" />
     <ClInclude Include="melodyTest.h" />
     <ClInclude Include="melodyTest2.h" />
     <ClInclude Include="musicProject1.h" />
